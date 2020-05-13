@@ -23,8 +23,6 @@ class User extends Component {
   render() {
     const { user, repos, loading } = this.props;
     const {
-      username,
-      website,
       login,
       html_url,
       avatar_url,
@@ -32,7 +30,6 @@ class User extends Component {
       company,
       blog,
       location,
-      email,
       hireable,
       bio,
       public_repos,
