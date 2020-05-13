@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 
 class User extends Component {
   componentDidMount() {
@@ -6,9 +7,12 @@ class User extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, loading } = this.props;
     const {
+      username,
+      website,
       login,
+      html_url,
       avatar_url,
       name,
       company,
@@ -23,7 +27,71 @@ class User extends Component {
       following,
     } = user;
 
-    return <div>{login}</div>;
+    return (
+      <Fragment>
+        <Link to="/" className="btn btn-light">
+          Back to search
+        </Link>
+        Hireable{" "}
+        {hireable ? (
+          <em className="fas fa-check text-success"></em>
+        ) : (
+          <em className="fas fa-times-circle text-danger"></em>
+        )}
+        <div className="card grid-2">
+          <div className="all-center">
+            <img
+              src={avatar_url}
+              className="round-img"
+              alt="User Avatar"
+              style={{ width: "150px" }}
+            />
+            <h1>{name}</h1>
+            <p>Location: {location}</p>
+          </div>
+          <div>
+            {bio && (
+              <Fragment>
+                <h3>Bio</h3>
+                <p>{bio}</p>
+              </Fragment>
+            )}
+            <a href={html_url} className="btn btn-dark my-1">
+              Visit GitHub Profile
+            </a>
+            <ul>
+              <li>
+                {login && (
+                  <Fragment>
+                    <strong>Username</strong>: {login}
+                  </Fragment>
+                )}
+              </li>
+              <li>
+                {company && (
+                  <Fragment>
+                    <strong>Company</strong>: {company}
+                  </Fragment>
+                )}
+              </li>
+              <li>
+                {blog && (
+                  <Fragment>
+                    <strong>Website</strong>: {blog}
+                  </Fragment>
+                )}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="card text-center">
+          <div className="badge badge-primary">Followers: {followers}</div>
+          <div className="badge badge-success">Following: {followers}</div>
+          <div className="badge badge-light">Public Repos: {public_repos}</div>
+          <div className="badge badge-dark">Public Gists: {public_gists}</div>
+        </div>
+      </Fragment>
+    );
   }
 }
 
